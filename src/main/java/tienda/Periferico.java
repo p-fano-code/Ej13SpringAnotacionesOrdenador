@@ -33,6 +33,15 @@ public class Periferico {
 		this.marca = marca;
 	}
 	
+	public static String setRandomMarca() {
+		String marcaRand;
+		String[] marcas = new String[]{"Mars","Logitech","Redragon"};
+		int rand = (int)(Math.random() * marcas.length-1) + 0;
+		marcaRand = marcas[rand];
+		
+		return marcaRand;		
+	};
+	
 	@Override
 	public String toString() {
 		return "Periferico [nombre=" + nombre + ", precio=" + precio + ", marca=" + marca + "]";

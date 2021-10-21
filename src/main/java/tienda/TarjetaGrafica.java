@@ -40,6 +40,15 @@ public class TarjetaGrafica {
 		this.modelo = modelo;
 	}
 	
+	public static String setRandomMarca() {
+		String marcaRand;
+		String[] marcas = new String[]{"AMD","NVIDIA","Gygabyte"};
+		int rand = (int)(Math.random() * marcas.length-1) + 0;
+		marcaRand = marcas[rand];
+		
+		return marcaRand;		
+	};
+	
 	@Override
 	public String toString() {
 		return "TarjetaGrafica [precio=" + precio + ", marca=" + marca + ", ram=" + ram + ", modelo=" + modelo + "]";

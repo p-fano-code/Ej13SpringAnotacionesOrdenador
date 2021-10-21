@@ -18,7 +18,10 @@ public class Main {
 		// TODO Auto-generated method stub
 		context = new AnnotationConfigApplicationContext(ConfiguracionSpring.class);
 		Ordenador o1 = context.getBean("ordenador", Ordenador.class);
+		DaoOrdenador dao = new DaoOrdenador();
 		System.out.println(o1);
+		System.out.println("El precio del ordenador es : "+o1.calcularPrecioComponentes(o1)+" €");
+		dao.crearFicheroOrdenador(o1);
 		
 	}
 

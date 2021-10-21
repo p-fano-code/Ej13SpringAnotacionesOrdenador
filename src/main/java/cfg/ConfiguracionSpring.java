@@ -16,24 +16,27 @@ import tienda.TarjetaGrafica;
 @Configuration
 public class ConfiguracionSpring {
 
-	int randSmall = (int)(Math.random() * 50) + 20;
-	int randMid = (int)(Math.random() * 100) + 20;
-	int randBig = (int)(Math.random() * 200) + 50; 
+	
+	
+	
 	//Creacion d las RAMS
 	@Bean(value="ramDedicada")
-	public Ram ramDedicada() {		
+	public Ram ramDedicada() {	
+		int randSmall = (int)(Math.random() * 50) + 20;
 		Ram ramDedicada = new Ram(randSmall, 1.2, "Primera");
 		return ramDedicada;		
 	}
 	
 	@Bean(value="ramIntegrada")
 	public Ram ramIntegrada() {
+		int randSmall = (int)(Math.random() * 50) + 20;
 		Ram ramIntegrada = new Ram(randSmall, 2.4, "Segubnda");
 		return ramIntegrada;		
 	}
 	
 	@Bean(value="ramOrdenador")
 	public Ram ramOrdenador() {
+		int randSmall = (int)(Math.random() * 50) + 20;
 		Ram ramPc = new Ram(randSmall, 3.2, "Tercera");
 		return ramPc;		
 	}
@@ -41,33 +44,38 @@ public class ConfiguracionSpring {
 	//Creacion de las Graficas
 	@Bean(value="graficaIntegrada")
 	public TarjetaGrafica graficaIntegrada(@Qualifier("ramIntegrada") Ram ram) {
-		TarjetaGrafica integrada = new TarjetaGrafica(randSmall, "Nvidia",ram, "Ultra Durable");
+		int randSmall = (int)(Math.random() * 50) + 20;
+		TarjetaGrafica integrada = new TarjetaGrafica(randSmall, TarjetaGrafica.setRandomMarca(),ram, "Ultra Durable");
 		return integrada;		
 	}
 	
 	@Bean(value="graficaDedicada")
 	public TarjetaGrafica graficaDedicada(@Qualifier("ramDedicada") Ram ram) {
-		TarjetaGrafica dedicada = new TarjetaGrafica(randBig, "AMD",ram, "Gaming Ultra");
+		int randBig = (int)(Math.random() * 200) + 50; 
+		TarjetaGrafica dedicada = new TarjetaGrafica(randBig, TarjetaGrafica.setRandomMarca(),ram, "Gaming Ultra");
 		return dedicada;		
 	}
 	
 	@Bean(value="raton")
 	public Periferico raton() {
-		Periferico raton = new Periferico("raton", randSmall, "Mars");
+		int randSmall = (int)(Math.random() * 50) + 20;
+		Periferico raton = new Periferico("raton", randSmall, Periferico.setRandomMarca());
 		return raton;		
 	}
 	
 	//Creacion del procewador
 	@Bean
 	public Procesador procesador (@Qualifier("graficaIntegrada") TarjetaGrafica integrada) {
-		Procesador procesador = new Procesador(randBig, 3.4, "Intel", integrada);	
+		int randBig = (int)(Math.random() * 200) + 50; 
+		Procesador procesador = new Procesador(randBig, 3.4, Procesador.setRandomMarca(), integrada);	
 		return procesador;
 	}
 	
 	//Creacion de la placa base
 	@Bean
 	public PlacaBase placaBase() {
-		PlacaBase placa = new PlacaBase(randBig, "AMD", "Ultra Durable 1000");	
+		int randBig = (int)(Math.random() * 200) + 50; 
+		PlacaBase placa = new PlacaBase(randBig, PlacaBase.setRandomMarca(), "Ultra Durable 1000");	
 		return placa;
 	}
 	
@@ -113,10 +121,12 @@ public class ConfiguracionSpring {
 								ArrayList<TarjetaGrafica> listaTarjetasGraficas ) {
 		Ordenador pc = new Ordenador();
 		pc.setMarca(Ordenador.setRandomMarca());
-		pc.setPrecio(100);
+		pc.setProcesador(procesador);
+		pc.setPlacaBase(placa);
 		pc.setListaRam(listaRam);
 		pc.setListaPerifericos(lisPerifericos);
 		pc.setListaTarjetasGraficas(listaTarjetasGraficas);
+		pc.setPrecio(pc.calcularPrecioComponentes(pc));
 		return pc;
 		
 	}
